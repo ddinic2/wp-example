@@ -10,6 +10,7 @@ const App = ({ context }: any) => {
     const svc = new Service
     const [zanrovi, setZanr] = React.useState([])
     const [authors, setAuthors] = React.useState([])
+    const [allUsers, setAllUsers] = React.useState([])
 
     React.useEffect(()=>{
         getData()
@@ -20,6 +21,16 @@ const App = ({ context }: any) => {
         setZanr(svc.makeDropdownFluentFromChoices(res.Choices, true))
         const authRes = await svc.getFromList('Autori', '')
         setAuthors(svc.makeDropdown(authRes))
+        const userRes = await svc.getAllUsers()
+        const personas = userRes.map((user: any) => ({
+            id: user.Id,
+            text: user.Title,
+            email: user.Email,
+            jobTitle: user.JobTitle,
+            photoUrl: user.PictureUrl
+        }));
+        setAllUsers(personas)
+        console.log('user list', personas)
     }
 
 
@@ -32,8 +43,8 @@ const App = ({ context }: any) => {
                     <HashRouter>
                         <Routes>
                             <Route path="/" element={<BookList/>}></Route>
-                            <Route path='/add-new' element={<AddNewBook zanrovi={zanrovi} authors={authors}/>}></Route>
-                            <Route path="/edit/:id" element={<EditBook zanrovi={zanrovi} authors={authors}/>}></Route>
+                            <Route path='/add-new' element={<AddNewBook zanrovi={zanrovi} authors={authors} allUsers={allUsers}/>}></Route>
+                            <Route path="/edit/:id" element={<EditBook zanrovi={zanrovi} authors={authors} allUsers={allUsers}/>}></Route>
                             <Route path="*" element={
                                 <main style={{ padding: "1rem" }}>
                                     <p>There's nothing here!</p>

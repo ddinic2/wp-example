@@ -5,10 +5,11 @@ import BookForm from "./BookForm";
 
 interface EditBookProps {
     zanrovi: any[],
-    authors: any[]
+    authors: any[],
+    allUsers:any[]
 }
 
-const EditBook = ({ zanrovi, authors }: EditBookProps) => {
+const EditBook = ({ zanrovi, authors, allUsers }: EditBookProps) => {
 
     const svc = new Service
     let params = useParams()
@@ -22,6 +23,7 @@ const EditBook = ({ zanrovi, authors }: EditBookProps) => {
         if(result.Izdata){
             result.Izdata = new Date(result.Izdata)
         }
+        console.log('get by id', result)
         setData(result)
     }
 
@@ -37,7 +39,7 @@ const EditBook = ({ zanrovi, authors }: EditBookProps) => {
             <div>
                 Edit book
             </div>
-            {data && data.Id > 0 && <BookForm zanrovi={zanrovi} authors={authors} data={data} />}
+            {data && data.Id > 0 && <BookForm zanrovi={zanrovi} authors={authors} data={data} allUsers={allUsers}/>}
             
         </>
     )

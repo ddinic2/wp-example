@@ -4,10 +4,11 @@ import BookForm from "./BookForm";
 
 interface AddNewBookProps {
     zanrovi: any[],
-    authors:any[]
+    authors:any[],
+    allUsers:any[]
 }
 
-const AddNewBook = ({ zanrovi, authors }: AddNewBookProps) => {
+const AddNewBook = ({ zanrovi, authors, allUsers }: AddNewBookProps) => {
 
 
     return (
@@ -15,7 +16,7 @@ const AddNewBook = ({ zanrovi, authors }: AddNewBookProps) => {
             <div>
                 Add new book
             </div>
-            <BookForm zanrovi={zanrovi} authors={authors} />
+            <BookForm zanrovi={zanrovi} authors={authors} allUsers={allUsers} />
         </>
     )
 }

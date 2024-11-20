@@ -4,34 +4,30 @@ import Service from "../../services/Service";
 import { ComboBox, DatePicker, TextField, DayOfWeek, Checkbox, DefaultButton } from "office-ui-fabric-react";
 import { defaultDatePickerStrings } from '@fluentui/react'
 import { useNavigate } from "react-router-dom";
+import CustomPeoplePicker from "./CustomPeoplePicker";
 
 interface BookFormProp {
     data?: any;
     zanrovi: any[];
     authors: any[];
+    allUsers: any[];
 }
 
 
-const BookForm = ({ zanrovi, authors, data }: BookFormProp) => {
+const BookForm = ({ zanrovi, authors, data, allUsers }: BookFormProp) => {
 
     const svc = new Service
     const [book, setBook] = React.useState(data || undefined)
     let navigate = useNavigate()
 
- 
-
-
     const save = async () => {
         if (book?.Id) {
-            const updateRes = await svc.updateItemInList('Knjige', { Id: book.Id, ID: book.ID, Title: book.Title, Zanr: book.Zanr, AuthorId: book.AutorId, Cena: book.Cena, Dostupna: book.Dostupna, Izdata: book.Izdata })
+            const updateRes = await svc.updateItemInList('Knjige', { Id: book.Id, ID: book.ID, Title: book.Title, Zanr: book.Zanr, AuthorId: book.AutorId, Cena: book.Cena, Dostupna: book.Dostupna, Izdata: book.Izdata, OdgovorniId: book.OdgovorniId })
         } else {
             const saveRes = await svc.addInList('Knjige', book)
         }
-
         navigate(`/`)
     }
-
-
 
     return (
         <>
@@ -67,6 +63,8 @@ const BookForm = ({ zanrovi, authors, data }: BookFormProp) => {
                 onChange={(e, v) => setBook({ ...book, AutorId: v.key })}
                 selectedKey={book?.AutorId}
             />
+
+            {allUsers.length > 0 && <CustomPeoplePicker allUsers={allUsers} itemLimit={2} field={'OdgovorniId'} item={book} label="Odgovorni" setItem={setBook} single={false}></CustomPeoplePicker>} 
 
             <DefaultButton text="Save" onClick={() => { save() }} />
         </>
