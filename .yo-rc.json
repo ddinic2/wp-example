@@ -1,0 +1,16 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "version": "1.15.2",
+    "libraryName": "wp-example",
+    "libraryId": "d51edccf-b490-4c8b-a2e8-0901404610d0",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "wp-example",
+    "solutionShortDescription": "wp-example description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}
